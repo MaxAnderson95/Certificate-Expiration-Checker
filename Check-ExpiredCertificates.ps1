@@ -48,18 +48,13 @@ $CSV = Import-CSV -Path $PathToCSV -ErrorAction SilentlyContinue -ErrorVariable 
 If ($Error_ImportCSV) {
 
     Write-Log -Message "Error importing CSV file." -LogFile $LogFileName
+    Return
 
 }
 
 ForEach ($Site in $CSV) {
-
-    Write-verbose "Contents of Site (1): $Site"
-    
-    Write-Verbose "Contents of Site (2): $Site"
     
     $Certificate = Get-WebCertificate -FQDN $Site.FQDN -Port $Site.Port
-
-    Write-verbose "Contents of Site (3): $Site"
 
     If ($Certificate -eq $Null) {
 
